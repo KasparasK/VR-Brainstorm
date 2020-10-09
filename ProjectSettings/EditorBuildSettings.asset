@@ -6,17 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Demos - ScrollingObjectCollection/Scenes/ScrollingObjectCollection.unity
-    guid: 79a0bb4c0426b7a4099c35eeced52ee4
-  - enabled: 1
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Experimental - MixedRealityKeyboard/Scenes/MixedRealityKeyboardExample.unity
-    guid: b21a91f417fdc7b41b531772ff092fcb
-  - enabled: 1
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Experimental - ColorPicker/ColorPickerExample.unity
-    guid: 50602fd68091a3649ba54d6691c8737c
-  - enabled: 1
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Demos - Input/Scenes/HandJointChaserExample.unity
-    guid: 578633004acf0bb44bb6c246084b43b7
+    path: Assets/Nodes.unity
+    guid: eb23ae2034d66704e8eec4a808e96a22
+  - enabled: 0
+    path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Demos - HandTracking/Scenes/HandInteractionExamples.unity
+    guid: 3dd4a396b5225f8469b9a1eb608bfa57
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: edf337793ac5f004ebc7f16e4ad610d7,
       type: 2}
