@@ -2,25 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.Input;
+using TMPro;
 using UnityEngine;
 [RequireComponent(typeof(NearInteractionTouchableVolume))]
 public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPointerHandler
 {
     public GameObject self;
-    private List<Transform> _connections;
 
     public Material selected;
     public Material notSelected;
     public Material touching;
 
+    public TMP_Text name;
+
+    public bool isSelected;
+
     public MeshRenderer meshRenderer;
 
-    private List<Transform> connections
+    private List<Node> _connections;
+    private List<Node> connections
     {
         get
         {
             if(_connections == null)
-                _connections = new List<Transform>();
+                _connections = new List<Node>();
 
             return _connections;
         }
@@ -33,55 +38,74 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
     public Action<Node> onTouchStart;
     public Action<Node> onTouchEnd;
 
+    private float lastTouchEndTime;
+    private const float minTimeBetweenTouchEnd = 0.1f;
 
+
+    void Start()
+    {
+        lastTouchEndTime = Time.time;
+        StartCoroutine(SlowUpdate());
+    }
 
     public int AddConnection(Node node)
     {
-        GameObject toAdd = node.self;
 
-        if(toAdd == self) //connection with self
+        if(node == this) //connection with self
             return -1;
 
-        if (connections.Contains(toAdd.transform)) //connection exists
+        if (connections.Contains(node)) //connection exists
             return -2;
 
-        connections.Add(toAdd.transform);
+        connections.Add(node);
         RefreshConnections();
         return 1;
     }
 
     public void RemoveConnection(Node node)
     {
-        connections.Remove(node.transform);
+        connections.Remove(node);
         RefreshConnections();
     }
+
+    public void RemoveAllConnections()
+    {
+        for (int i = 0; i < connections.Count; i++)
+        {
+            connections[i].RemoveConnection(this);
+            
+        }
+        connections.Clear();
+
+        RefreshConnections();
+    }
+
+
 
     void RefreshConnections()
     {
         Vector3[] newPositions = new Vector3[connections.Count+1];
 
-
         int i = 0;
         for (i = 0; i < connections.Count;i++)
         {
-            newPositions[i] = connections[i].position;
+            newPositions[i] = connections[i].self.transform.position;
         }
-        Debug.Log(i);
-
         newPositions[i] = transform.position;
 
         lineRenderer.positionCount = newPositions.Length;
         lineRenderer.SetPositions(newPositions);
-
     }
 
     public void Select()
     {
+        isSelected = true;
         SetMaterial(selected);
     }
 
     public void Deselect()
     {
+        isSelected = false;
         SetMaterial(notSelected);
     }
 
@@ -90,11 +114,16 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
         meshRenderer.sharedMaterial = mat;
     }
 
+    IEnumerator SlowUpdate()
+    {
+        while (true)
+        {
+            RefreshConnections();
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     #region Touch
-
-    
-
-    #endregion
     public void OnTouchStarted(HandTrackingInputEventData eventData)
     {
         if (!NodeManager.allowDragging)
@@ -107,12 +136,26 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
 
     public void OnTouchCompleted(HandTrackingInputEventData eventData)
     {
-        if (!NodeManager.allowDragging)
+        if (!NodeManager.allowDragging )
         {
-            SetMaterial(notSelected);
+            if (Time.time - lastTouchEndTime >= minTimeBetweenTouchEnd)
+            {
 
-            onTouchEnd?.Invoke(this);
+                onTouchEnd?.Invoke(this);
+
+                lastTouchEndTime = Time.time;
+
+                SetMaterial(notSelected);
+
+            }
+
+
         }
+    }
+
+    public void Rename(string text)
+    {
+        name.text = text;
     }
 
     public void OnTouchUpdated(HandTrackingInputEventData eventData)
@@ -125,6 +168,10 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
         // throw new System.NotImplementedException();
     }
 
+
+    #endregion
+
+    #region Grab
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)
     {
@@ -161,4 +208,6 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
         }
         //  throw new NotImplementedException();
     }
+
+    #endregion
 }

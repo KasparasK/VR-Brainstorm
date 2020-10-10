@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Nodes.unity
     guid: eb23ae2034d66704e8eec4a808e96a22
   - enabled: 0
+    path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Experimental - MixedRealityKeyboard/Scenes/MixedRealityKeyboardExample.unity
+    guid: b21a91f417fdc7b41b531772ff092fcb
+  - enabled: 0
     path: Assets/Samples/Mixed Reality Toolkit Examples/2.5.0/Demos - HandTracking/Scenes/HandInteractionExamples.unity
     guid: 3dd4a396b5225f8469b9a1eb608bfa57
   m_configObjects:
