@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 9075273998794273587}
   - component: {fileID: 6890290386363128250}
   - component: {fileID: 7870214910551345532}
+  - component: {fileID: 3338484481209732161}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -255,6 +256,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3338484481209732161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665142466702344272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3f191c3effa724c8dd4f2f9aa10572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
 --- !u!1 &7417942497511751265
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +399,6 @@ MonoBehaviour:
   notSelected: {fileID: 2100000, guid: 496fd799653d048408cd6210fa7d1718, type: 2}
   touching: {fileID: 2100000, guid: 270e22940fed2c149aaea95d272418a4, type: 2}
   name: {fileID: 7870214910551345532}
-  isSelected: 0
   meshRenderer: {fileID: 7284616478369398367}
   lineRenderer: {fileID: 7308280821065892825}
 --- !u!120 &7308280821065892825

@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
 {
     public Interactable dragModeToggle;
     public TouchScreenKeyboard keyboard;
-    public TMP_Text keyboardInput;
 
     // Start is called before the first frame update
     public GameObject origin;
@@ -50,24 +49,17 @@ public class UIManager : MonoBehaviour
         keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
     }
 
+    public void DeselectAllClicked()
+    {
+        NodeManager.Instance.DeselectSelected();
+    }
+
     void Update()
     {
-
-        if (keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)
+        if (keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Visible)
         {
             NodeManager.Instance.RenameSelected(keyboard.text);
-
         }
-       else if (keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Visible)
-        {
-            keyboardInput.text = keyboard.text;
-        }
-        else
-        {
-            keyboardInput.text = "";
-        }
-
-
     }
 
     public void Log(string txt)

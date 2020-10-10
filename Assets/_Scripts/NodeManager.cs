@@ -48,7 +48,7 @@ public class NodeManager : MonoBehaviour
         nodes = new List<Node>();
         selected = new List<Node>();
 
-    /*   CreateNewNode(new Vector3(0, 0.5f, 0.5f));
+       CreateNewNode(new Vector3(0, 0.5f, 0.5f));
         CreateNewNode(new Vector3(0.5f, 0, 0.5f));
         CreateNewNode(new Vector3(0.5f, 0.5f, 0));
         CreateNewNode(new Vector3(0, 0.5f, 0));
@@ -62,7 +62,7 @@ public class NodeManager : MonoBehaviour
          Select(nodes[4]);
 
         ConnectSelected();
-       RemoveConnectionsFromSelected();*/
+   //    RemoveConnectionsFromSelected();
          /* Select(nodes[0]);
           Select(nodes[1]);*/
 
@@ -95,7 +95,7 @@ public class NodeManager : MonoBehaviour
     {
         //log?.Invoke("touch end\n");
 
-        if(!newSelection.isSelected)
+        if(!selected.Contains(newSelection))
             selected.Add(newSelection);
         else
         {
@@ -105,7 +105,7 @@ public class NodeManager : MonoBehaviour
 
 
     }
-    void Update()
+    void FixedUpdate()
     {
 
         for (int i = 0; i < selected.Count; i++)
@@ -115,19 +115,18 @@ public class NodeManager : MonoBehaviour
     }
     public void ConnectSelected()
     {
-        if (selected.Count >= 2)
+
+        for (int i = 0; i < selected.Count; i++)
         {
-            var result = selected.Zip(selected.Skip(1), (a, b) => Tuple.Create(a, b));
-            foreach (var pair in result)
+            for (int j = 0; j < selected.Count; j++)
             {
-                pair.Item1.AddConnection(pair.Item2);
-                pair.Item2.AddConnection(pair.Item1);
-
+                if (j != i)
+                {
+                    selected[i].AddConnection(selected[j]);
+                }
             }
-            selected[0].AddConnection(selected[selected.Count-1]);
-            selected[selected.Count - 1].AddConnection(selected[0]);
-
         }
+
     }
 
     public void RemoveConnectionsFromSelected()
@@ -144,5 +143,14 @@ public class NodeManager : MonoBehaviour
         {
             selected[i].Rename(text);
         }
+    }
+
+    public void DeselectSelected()
+    {
+        for (int i = 0; i < selected.Count; i++)
+        {
+            selected[i].Deselect();
+        }
+        selected.Clear();
     }
 }

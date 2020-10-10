@@ -15,8 +15,6 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
 
     public TMP_Text name;
 
-    public bool isSelected;
-
     public MeshRenderer meshRenderer;
 
     private List<Node> _connections;
@@ -99,13 +97,11 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
 
     public void Select()
     {
-        isSelected = true;
         SetMaterial(selected);
     }
 
     public void Deselect()
     {
-        isSelected = false;
         SetMaterial(notSelected);
     }
 
@@ -119,7 +115,8 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
         while (true)
         {
             RefreshConnections();
-            yield return new WaitForSeconds(0.1f);
+        //    yield return new WaitForSeconds(0.05f);
+         yield return new WaitForEndOfFrame();
         }
     }
 
