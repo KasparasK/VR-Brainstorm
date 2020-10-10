@@ -90,46 +90,75 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
         meshRenderer.sharedMaterial = mat;
     }
 
+    #region Touch
+
+    
+
+    #endregion
     public void OnTouchStarted(HandTrackingInputEventData eventData)
     {
-        SetMaterial(touching);
+        if (!NodeManager.allowDragging)
+        {
+            SetMaterial(touching);
 
-        onTouchStart?.Invoke(this);
-    
+            onTouchStart?.Invoke(this);
+        }
     }
 
     public void OnTouchCompleted(HandTrackingInputEventData eventData)
     {
+        if (!NodeManager.allowDragging)
+        {
+            SetMaterial(notSelected);
 
-        SetMaterial(notSelected);
-
-        onTouchEnd?.Invoke(this);
-
+            onTouchEnd?.Invoke(this);
+        }
     }
 
     public void OnTouchUpdated(HandTrackingInputEventData eventData)
     {
-       // throw new System.NotImplementedException();
+        if (!NodeManager.allowDragging)
+        {
+
+        }
+
+        // throw new System.NotImplementedException();
     }
 
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)
     {
-      //  throw new NotImplementedException();
+        if (!NodeManager.allowDragging)
+        {
+
+        }
+        //  throw new NotImplementedException();
     }
 
     public void OnPointerDragged(MixedRealityPointerEventData eventData)
     {
-        transform.position = eventData.Pointer.Position;
+        if (NodeManager.allowDragging)
+        {
+            transform.position = eventData.Pointer.Position;
+
+        }
     }
 
     public void OnPointerUp(MixedRealityPointerEventData eventData)
     {
-     //   throw new NotImplementedException();
+        if (NodeManager.allowDragging)
+        {
+
+        }
+        //   throw new NotImplementedException();
     }
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
-      //  throw new NotImplementedException();
+        if (NodeManager.allowDragging)
+        {
+
+        }
+        //  throw new NotImplementedException();
     }
 }
