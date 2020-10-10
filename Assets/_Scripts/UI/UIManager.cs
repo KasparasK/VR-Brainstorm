@@ -9,6 +9,27 @@ public class UIManager : MonoBehaviour
     public Interactable dragModeToggle;
     public TouchScreenKeyboard keyboard;
 
+    public TMP_Text log;
+
+     List<string> logMessages;
+    List<string> LogMessages
+    {
+        get
+        {
+            if (logMessages == null)
+            {
+                logMessages = new List<string>();
+            }
+            return logMessages;
+
+        }
+        set
+        {
+            logMessages = value;
+        }
+    }
+    const int sizeLimit = 9;
+
     // Start is called before the first frame update
     public GameObject origin;
     void Start()
@@ -62,9 +83,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void Log(string txt)
+    public void Log(string txt, bool clear = false)
     {
-    //    log.text += txt;
+        if (clear)
+        {
+            LogMessages.Clear();
+        }
+        LogMessages.Add(txt);
+        if (LogMessages.Count > sizeLimit)
+            LogMessages.RemoveAt(0);
+
+        ConvertIntoString();
+    }
+
+    private void ConvertIntoString()
+    {
+        log.text = "";
+        for (int i = 0; i < LogMessages.Count; i++)
+        {
+            log.text += LogMessages[i] + "\n";
+        }
+
 
     }
 }

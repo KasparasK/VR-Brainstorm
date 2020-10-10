@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragModeToggle: {fileID: 8466618593939651900}
+  log: {fileID: 6666518252090098432}
   origin: {fileID: 0}
 --- !u!1 &2599809079593944444
 GameObject:
@@ -135,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6985255703508814273
 RectTransform:
   m_ObjectHideFlags: 0
