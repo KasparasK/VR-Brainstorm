@@ -8,6 +8,7 @@ using UnityEngine;
 public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPointerHandler
 {
     public GameObject self;
+    public NodeSync nodeSync;
 
     public Material selected;
     public Material notSelected;
@@ -152,6 +153,7 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
 
     public void Rename(string text)
     {
+        nodeSync.Rename(text);
         name.text = text;
     }
 

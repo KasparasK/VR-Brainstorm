@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
+using Normal.Realtime;
 
 public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 {
     public GameObject nodePref;
+    public Realtime _realtime;
     public CanvasFollowHand canvasFollowHand;
 
     public List<Node> nodes;
@@ -49,7 +51,7 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
         nodes = new List<Node>();
         selected = new List<Node>();
 
-       CreateNewNode(new Vector3(0, 0.5f, 0.5f));
+ /*      CreateNewNode(new Vector3(0, 0.5f, 0.5f));
         CreateNewNode(new Vector3(0.5f, 0, 0.5f));
         CreateNewNode(new Vector3(0.5f, 0.5f, 0));
         CreateNewNode(new Vector3(0, 0.5f, 0));
@@ -62,7 +64,7 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
          Select(nodes[3]);
          Select(nodes[4]);
 
-        ConnectSelected();
+        ConnectSelected();*/
    //    RemoveConnectionsFromSelected();
          /* Select(nodes[0]);
           Select(nodes[1]);*/
@@ -72,7 +74,8 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 
      public void CreateNewNode(Vector3 pos)
     {
-        GameObject node = Instantiate(nodePref, pos, Quaternion.identity);
+        GameObject node = Realtime.Instantiate(nodePref.name, pos, Quaternion.identity, ownedByClient: false, useInstance: _realtime);
+        //node.transform.position = pos;
         Node nodeScript = node.GetComponent<Node>();
         nodeScript.onTouchEnd += Select;
         node.name = "NODE " + nodes.Count;
