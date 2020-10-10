@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
 
-public class NodeManager : MonoBehaviour
+public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 {
     public GameObject nodePref;
     public CanvasFollowHand canvasFollowHand;
@@ -40,7 +41,7 @@ public class NodeManager : MonoBehaviour
 
     public static bool allowDragging;
 
-    public Action<string> log;
+    public Action<string,bool> log;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +94,7 @@ public class NodeManager : MonoBehaviour
 
     void Select(Node newSelection)
     {
-        //log?.Invoke("touch end\n");
+        Log("touch end");
 
         if(!selected.Contains(newSelection))
             selected.Add(newSelection);
@@ -152,5 +153,124 @@ public class NodeManager : MonoBehaviour
             selected[i].Deselect();
         }
         selected.Clear();
+    }
+
+    #region MyRegion
+    public void OnGestureStarted(InputEventData eventData)
+    {
+        //    Debug.Log();
+        Log($"OnGestureStarted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+        var action = eventData.MixedRealityInputAction.Description;
+        if (action == "Hold Action")
+        {
+            Log("Hold Action start ");
+           // SetIndicator(HoldIndicator, "Hold: started", HoldMaterial);
+        }
+        else if (action == "Manipulate Action")
+        {
+            Log("Manipulate Action start ");
+
+         //   SetIndicator(ManipulationIndicator, $"Manipulation: started {Vector3.zero}", ManipulationMaterial, Vector3.zero);
+        }
+        else if (action == "Navigation Action")
+        {
+            Log("Navigation Action start ");
+
+          //  SetIndicator(NavigationIndicator, $"Navigation: started {Vector3.zero}", NavigationMaterial, Vector3.zero);
+         //   ShowRails(Vector3.zero);
+        }
+    }
+
+    public void OnGestureUpdated(InputEventData eventData)
+    {
+        // Debug.Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+        var action = eventData.MixedRealityInputAction.Description;
+        if (action == "Hold Action")
+        {
+            Log("Hold Action update");
+//
+       //     SetIndicator(HoldIndicator, "Hold: updated", DefaultMaterial);
+        }
+    }
+
+    public void OnGestureCompleted(InputEventData eventData)
+    {
+        // Debug.Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+        var action = eventData.MixedRealityInputAction.Description;
+        if (action == "Hold Action")
+        {
+            Log("Hold Action complete");
+
+            //SetIndicator(HoldIndicator, "Hold: completed", DefaultMaterial);
+        }
+        else if (action == "Select")
+        {
+            Log("Select Action complete");
+
+          //  SetIndicator(SelectIndicator, "Select: completed", SelectMaterial);
+        }
+    }
+
+    public void OnGestureCanceled(InputEventData eventData)
+    {
+       // Debug.Log($"OnGestureCanceled [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureCanceled [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+    }
+
+    public void OnGestureUpdated(InputEventData<Vector3> eventData)
+    {
+        Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+        //  Debug.Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+        var action = eventData.MixedRealityInputAction.Description;
+        if (action == "Manipulate Action")
+        {
+            Log("Manipulate Action updated");
+
+            //   SetIndicator(ManipulationIndicator, $"Manipulation: updated {eventData.InputData}", ManipulationMaterial, eventData.InputData);
+        }
+        else if (action == "Navigation Action")
+        {
+            Log("Navigation Action updated ");
+
+            /*  SetIndicator(NavigationIndicator, $"Navigation: updated {eventData.InputData}", NavigationMaterial, eventData.InputData);
+              ShowRail*/
+        }
+    }
+
+    public void OnGestureCompleted(InputEventData<Vector3> eventData)
+    {
+        // Debug.Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
+        var action = eventData.MixedRealityInputAction.Description;
+        if (action == "Manipulate Action")
+        {
+            Log("Manipulate Action completed");
+
+          //  SetIndicator(ManipulationIndicator, $"Manipulation: completed {eventData.InputData}", DefaultMaterial, eventData.InputData);
+        }
+        else if (action == "Navigation Action")
+        {
+            Log("Navigation Action completed");
+
+           /* SetIndicator(NavigationIndicator, $"Navigation: completed {eventData.InputData}", DefaultMaterial, eventData.InputData);
+            HideRails();*/
+        }
+    }
+
+
+    #endregion
+
+    void Log(string txt, bool clear = false)
+    {
+        log?.Invoke(txt,clear);
     }
 }
