@@ -158,7 +158,8 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
     #region MyRegion
     public void OnGestureStarted(InputEventData eventData)
     {
-    //    Debug.Log($"OnGestureStarted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        //    Debug.Log();
+        Log($"OnGestureStarted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
 
         var action = eventData.MixedRealityInputAction.Description;
         if (action == "Hold Action")
@@ -183,7 +184,8 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 
     public void OnGestureUpdated(InputEventData eventData)
     {
-       // Debug.Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        // Debug.Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
 
         var action = eventData.MixedRealityInputAction.Description;
         if (action == "Hold Action")
@@ -196,7 +198,8 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 
     public void OnGestureCompleted(InputEventData eventData)
     {
-       // Debug.Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        // Debug.Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
 
         var action = eventData.MixedRealityInputAction.Description;
         if (action == "Hold Action")
@@ -215,11 +218,15 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 
     public void OnGestureCanceled(InputEventData eventData)
     {
-        throw new NotImplementedException();
+       // Debug.Log($"OnGestureCanceled [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureCanceled [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
     }
 
     public void OnGestureUpdated(InputEventData<Vector3> eventData)
     {
+        Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+
         //  Debug.Log($"OnGestureUpdated [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
 
         var action = eventData.MixedRealityInputAction.Description;
@@ -240,7 +247,8 @@ public class NodeManager : MonoBehaviour, IMixedRealityGestureHandler<Vector3>
 
     public void OnGestureCompleted(InputEventData<Vector3> eventData)
     {
-       // Debug.Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        // Debug.Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
+        Log($"OnGestureCompleted [{Time.frameCount}]: {eventData.MixedRealityInputAction.Description}");
 
         var action = eventData.MixedRealityInputAction.Description;
         if (action == "Manipulate Action")
