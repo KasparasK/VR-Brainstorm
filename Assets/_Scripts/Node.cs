@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.Input;
+using Normal.Realtime;
 using TMPro;
 using UnityEngine;
 [RequireComponent(typeof(NearInteractionTouchableVolume))]
@@ -40,6 +41,7 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
     private float lastTouchEndTime;
     private const float minTimeBetweenTouchEnd = 0.1f;
 
+    public RealtimeTransform realtimeTransform;
 
     void Start()
     {
@@ -194,7 +196,7 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
     {
         if (NodeManager.allowDragging)
         {
-
+            realtimeTransform.ClearOwnership();
         }
         //   throw new NotImplementedException();
     }
