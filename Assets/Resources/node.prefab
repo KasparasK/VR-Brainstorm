@@ -405,6 +405,7 @@ MonoBehaviour:
   name: {fileID: 7870214910551345532}
   meshRenderer: {fileID: 7284616478369398367}
   lineRenderer: {fileID: 7308280821065892825}
+  realtimeTransform: {fileID: -6856822811947510648}
 --- !u!120 &7308280821065892825
 LineRenderer:
   m_ObjectHideFlags: 0
