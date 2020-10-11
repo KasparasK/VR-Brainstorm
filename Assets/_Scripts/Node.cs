@@ -178,6 +178,7 @@ public class Node : MonoBehaviour, IMixedRealityTouchHandler, IMixedRealityPoint
     {
         if (!NodeManager.allowDragging)
         {
+            realtimeTransform.RequestOwnership();
 
         }
         //  throw new NotImplementedException();
